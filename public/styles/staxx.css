@@ -1,0 +1,612 @@
+.content {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(166deg, #f7f7f7 0%, #cc9ca8 0%, #c9abda 34%, #9185b6 70%, #4f598c 100%);
+}
+
+.content .ui {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.content .game_window {
+  --grid-gap: .2rem;
+  -webkit-box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, 0.1);
+          box-shadow: 5px 5px 15px 3px rgba(0, 0, 0, 0.1);
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: (1fr)[var];
+      grid-template-rows: repeat(var(--numRows), 1fr);
+  gap: var(--grid-gap);
+}
+
+.content .game_window.portrait {
+  --block-size: calc((100vw - 4rem)/(var(--numRows)));
+}
+
+.content .game_window.landscape {
+  --block-size: calc((100vh - 4rem)/(var(--numRows)));
+}
+
+.content .game_window .row {
+  display: -ms-grid;
+  display: grid;
+  gap: var(--grid-gap);
+  -ms-grid-columns: (1fr)[var];
+      grid-template-columns: repeat(var(--numCols), 1fr);
+}
+
+.content .game_window .row .block {
+  background-color: rgba(255, 255, 255, 0.2);
+  width: var(--block-size);
+}
+
+.content .game_window .row .block::before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.content .game_window .row .block.active {
+  background-color: rgba(47, 218, 245, 0.3);
+}
+
+.content .game_window .row .block.gameover {
+  -webkit-animation: flashRed 300ms ease 5 alternate;
+          animation: flashRed 300ms ease 5 alternate;
+  background-color: rgba(216, 22, 22, 0.3);
+}
+
+@-webkit-keyframes flashRed {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(216, 22, 22, 0.3);
+  }
+}
+
+@keyframes flashRed {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(216, 22, 22, 0.3);
+  }
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block:nth-of-type(i) {
+  -webkit-animation-delay: 50 * i;
+          animation-delay: 50 * i;
+}
+
+.content .game_window .row .block.win {
+  -webkit-animation: flashGreen 200ms ease 7 alternate;
+          animation: flashGreen 200ms ease 7 alternate;
+  background-color: rgba(28, 216, 22, 0.3);
+}
+
+@-webkit-keyframes flashGreen {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(28, 216, 22, 0.3);
+  }
+}
+
+@keyframes flashGreen {
+  0% {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    background-color: rgba(28, 216, 22, 0.3);
+  }
+}
+/*# sourceMappingURL=staxx.css.map */
