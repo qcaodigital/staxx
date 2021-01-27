@@ -414,7 +414,7 @@ class GameData {
         }
 
         //POST win data to DB
-        axios.post("https://staxxz.herokuapp.com/scores", { time: +timeString, name: localStorage.getItem('username') })
+        axios.post("https://staxxz.herokuapp.com/scores", {time: +timeString, name: localStorage.getItem('username')}, { headers: { 'Content-Type': 'application/json' } })
             .then(resp => console.log(resp))
             .catch(err => console.log(err))
     }
