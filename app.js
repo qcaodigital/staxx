@@ -1,5 +1,3 @@
-//
-
 if(process.env.NODE_ENV === 'development'){
     require('dotenv').config();
     var livereload = require("livereload");
@@ -13,14 +11,14 @@ if(process.env.NODE_ENV === 'development'){
 
 const express = require('express');
 const app = express();
-const cors = require('cors');
+// const cors = require('cors');
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n.mongodb.net/qcaodigital?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 1, connectTimeoutMS: 30000 });
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 client.connect(async(err) => {
     const collection = client.db("staxx").collection("scores");
