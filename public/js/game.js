@@ -32,8 +32,8 @@ const winbgm = new Howl({
     volume: 0
 })
 
-// const bgmVol = .4;
-const bgmVol = 0;
+const bgmVol = .4;
+// const bgmVol = 0;
 const bgm = new Howl({
     src: ['../sounds/bgm.mp3'],
     loop: true,
@@ -41,7 +41,6 @@ const bgm = new Howl({
     autoplay: true,
     onload: () => {
         bgm.fade(.25, bgmVol, 3000)
-        // bgm.fade(0, 0, 5000)
     }
 })
 
@@ -71,8 +70,7 @@ class GameData {
         }
         this.configs = {
             speedReductionRate: .8,
-            // activeBlockReductionRate: .35,
-            activeBlockReductionRate: 0,
+            activeBlockReductionRate: .35,
             timeoutAt: 60,
             sound: {
                 volume: null,
@@ -414,7 +412,7 @@ class GameData {
         }
 
         //POST win data to DB
-        axios.post("http://localhost:3000/scores", { time: +timeString, name: localStorage.getItem('username') })
+        axios.post("https://staxxz.herokuapp.com/scores", { time: +timeString, name: localStorage.getItem('username') })
             .then(resp => console.log(resp))
             .catch(err => console.log(err))
     }
