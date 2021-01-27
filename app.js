@@ -9,6 +9,8 @@ if(process.env.NODE_ENV === 'development'){
     app.use(connectLivereload());
 }
 
+console.log(process.env.MONGO_PW)
+
 const express = require('express');
 const app = express();
 const cors = require('cors');
