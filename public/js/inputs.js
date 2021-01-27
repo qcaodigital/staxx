@@ -1,5 +1,3 @@
-import GameData, { cancelSound, menuSound } from './Game.js';
-
 const game = new GameData({ 
     numStartActiveBlocks: 4,
     startingActiveBlock: 0, 

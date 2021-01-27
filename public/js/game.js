@@ -2,39 +2,39 @@ function logObj(obj){
     console.log(JSON.parse(JSON.stringify(obj)));
 }
 
-export const menuSound = new Howl({
+const menuSound = new Howl({
     src: ['/sounds/notification.wav'],
     volume: .25
 })
 
-export const loseSound = new Howl({
+const loseSound = new Howl({
     src: ['../sounds/lose.wav'],
     volume: .75
 })
 
-export const winSound = new Howl({
+const winSound = new Howl({
     src: ['../sounds/win.wav'],
     volume: .5 
 })
 
-export const dropSound = new Howl({
+const dropSound = new Howl({
     src: ['../sounds/drop.wav'],
     volume: .5
 })
 
-export const cancelSound = new Howl({
+const cancelSound = new Howl({
     src: ['../sounds/cancel.wav'],
     volume: .3
 })
 
-export const winbgm = new Howl({
+const winbgm = new Howl({
     src: ['../sounds/winbgm.mp3'],
     volume: 0
 })
 
 // const bgmVol = .4;
 const bgmVol = 0;
-export const bgm = new Howl({
+const bgm = new Howl({
     src: ['../sounds/bgm.mp3'],
     loop: true,
     volume: 0,
@@ -480,5 +480,3 @@ class GameData {
         }, timeout);  
     }
 }
-
-export default GameData;
