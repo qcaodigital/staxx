@@ -9,15 +9,13 @@ if(process.env.NODE_ENV === 'development'){
     app.use(connectLivereload());
 }
 
-console.log(process.env.MONGO_PW)
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n.mongodb.net/qcaodigital?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 1, connectTimeoutMS: 30000 });
 
 app.use(express.json());
 app.use(cors());
