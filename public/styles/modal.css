@@ -55,16 +55,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-@media (pointer: coarse) {
-  .modal__content .directions::before {
-    content: 'Just tap the screen to drop the blocks!';
-  }
-}
-
-@media (pointer: fine) {
-  .modal__content .directions::before {
-    content: 'Just click anywhere or press  \'Spacebar\' to drop the blocks!';
-  }
+.modal__content input {
+  display: block;
+  margin: 0 auto 1rem auto;
+  height: 2rem;
+  width: 250px;
 }
 
 .modal__content button {

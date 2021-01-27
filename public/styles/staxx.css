@@ -26,8 +26,8 @@ body {
 }
 
 .content.blur {
-  -webkit-filter: blur(3 px);
-          filter: blur(3 px);
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
 }
 
 .content > * {

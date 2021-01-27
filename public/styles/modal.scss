@@ -40,16 +40,11 @@
             letter-spacing: .5px;
             font-family: 'Montserrat', sans-serif;
         }
-        .directions {
-            &::before {
-                @media (pointer: coarse){
-                    content: 'Just tap the screen to drop the blocks!'
-                }
-
-                @media (pointer: fine){
-                    content: 'Just click anywhere or press  \'Spacebar\' to drop the blocks!'
-                }
-            }
+        input {
+            display: block;
+            margin: 0 auto 1rem auto;
+            height: 2rem;
+            width: 250px;
         }
         button {
             cursor: pointer;

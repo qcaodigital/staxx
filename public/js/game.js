@@ -4,7 +4,7 @@ function logObj(obj){
 
 export const menuSound = new Howl({
     src: ['/sounds/notification.wav'],
-    volume: .35
+    volume: .25
 })
 
 export const loseSound = new Howl({
@@ -196,11 +196,17 @@ class GameData {
         this.currentGameData.inProgress = true; 
         this.currentGameData.interval = setInterval(this.frameInterval.bind(this), this.currentGameData.currentSpeed);
 
-        this.generateModal({ 
-            heading: '<u style="font-family: \'Abril Fatface\'">Welcome to Staxx</u>', 
-            line1: 'The objective of <strong>STAXX</strong> is to stack the blocks to the top of the grid. That\'s all! You only have one shot per row though so if you miss, you\'ll have to start over. Not to mention the game will get harder as you progress.', 
-            closeText: 'Play Staxx!' 
-        })
+        //Only open welcome modal if a username has not been previously entered / localStorage has been cleared
+        if(!localStorage.getItem('username')){
+            this.generateModal({
+                welcome: true,
+                heading: '<u style="font-family: \'Abril Fatface\'">Welcome to Staxx</u>', 
+                line1: 'The objective of <strong>STAXX</strong> is to stack the blocks to the top of the grid. That\'s all! You only have one shot per row though so if you miss, you\'ll have to start over. Not to mention the game will get harder as you progress.',
+                line2: 'Just press click/tap anywhere or press space bar to drop the blocks and get to the top!', 
+                closeText: 'Play Staxx!' 
+            })
+            $('#generic.modal').removeClass('hide');
+        } 
     }
 
     start(){
@@ -406,6 +412,11 @@ class GameData {
             this.persists.highscores = highScores.sort((a, b) => a - b);
             localStorage.setItem('high_scores', JSON.stringify(highScores))
         }
+
+        //POST win data to DB
+        axios.post("http://localhost:3000/scores", { time: +timeString, name: localStorage.getItem('username') })
+            .then(resp => console.log(resp))
+            .catch(err => console.log(err))
     }
 
     gameOverAni({ source }){
@@ -454,15 +465,16 @@ class GameData {
         this.currentGameData.gameOver = true;
     }
 
-    generateModal({ heading, line1=null, line2=null, line3=null, closeText='Try again?', timeout=0, className }){
+    generateModal({ welcome, heading, line1=null, line2=null, line3=null, closeText='Try again?', timeout=0, className }){
         $('#generic').addClass(className);
         setTimeout(() => {
-            $('main > .content').addClass('blur')
+            $('main > .content').addClass('blur');
             this.state.modals.modalOpen = true;
             $('#generic .heading').html(heading);
             $('#generic .line1').html(line1);
             $('#generic .line2').html(line2);
             $('#generic .line3').html(line3);
+            !welcome ? $('#generic .name-form').hide() : null //dont display input if current modal is not the welcome modal
             $('#generic .close span').html(closeText);
             $('#generic').removeClass('hide');
         }, timeout);  

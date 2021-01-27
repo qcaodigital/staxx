@@ -13,27 +13,34 @@ app.use(connectLivereload());
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n.mongodb.net/qcaodigital?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-    const collection = client.db("staxx").collection("highscores");
-    collection.insertOne('test')
-    client.close();
-});
 
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + "/public"));
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    const numRows = 14; //14 default
-    const numCols = 7; //7 default 
-    res.render('game', { numRows: numRows, numCols: numCols})
-})
+client.connect(async(err) => {
+    const collection = client.db("staxx").collection("scores");
+ 
+    app.set('view engine', 'ejs');
+    app.use(express.static(__dirname + "/public"));
 
-const port = 3000 || process.env.PORT;
-app.listen(port, () => console.log('Server started on port', port))
+    app.get('/', (req, res) => {
+        const numRows = 14; //14 default
+        const numCols = 7; //7 default 
+        res.render('game', { numRows: numRows, numCols: numCols})
+    })
 
-// ping browser on Express boot, once browser has reconnected and handshaken
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
+    app.post('/scores', async (req, res) => {
+        console.log(req.body)
+        const result = await collection.insertOne({ name: req.body.name,  time: req.body.time })
+        res.send(result.data)
+    })
+
+    const port = 3000 || process.env.PORT;
+    app.listen(port, () => console.log('Server started on port', port))
+
+    // ping browser on Express boot, once browser has reconnected and handshaken
+    liveReloadServer.server.once("connection", () => {
+    setTimeout(() => {
+        liveReloadServer.refresh("/");
+    }, 100);
+    });
 });

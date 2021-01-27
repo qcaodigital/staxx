@@ -96,6 +96,10 @@ function closeModal(e){
         !$('#generic.modal').hasClass('highscores') ? game.start() : $('#generic.modal').removeClass('highscores');
         $('.ui .highscores').removeClass('active');
         this.blur();
+
+        if($('#generic.modal .name-form').css('display') !== 'none'){ //input on modal will have "display: none" if a name has been entered into localStorage
+            localStorage.setItem('username', $('#generic.modal .name-form').val())
+        }
     }
 }
 

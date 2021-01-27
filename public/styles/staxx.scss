@@ -16,7 +16,7 @@ body {
     background: linear-gradient(166deg, rgba(247,247,247,1) 0%, rgba(204,156,168,1) 0%, rgba(201,171,218,1) 34%, rgba(145,133,182,1) 70%, rgba(79,89,140,1) 100%);
     transition: 50ms;
     &.blur {
-        filter: blur(3 px);
+        filter: blur(3px);
     }
     > * {
         font-family: 'Abril Fatface', serif;
