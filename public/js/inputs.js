@@ -85,6 +85,7 @@ $('.cheat_list__item div').click(function(e){ //Toggle assists
     game.configs.assists[e.target.dataset.assist] = !game.configs.assists[e.target.dataset.assist];
 })
 
+//includes welcome, lose game, win game, highscores
 function closeModal(e){
     if(game.state.modals.modalOpen && ([13,27].includes(e.which) || e.type === 'click')){
         e.stopPropagation();
@@ -93,13 +94,16 @@ function closeModal(e){
         $('#generic.modal').addClass('hide');
         $('main > .content').removeClass('blur')
 
+        //if the current modal is not the highscores page, it is either the welcome or win/end game modal, so restart game on button click
         !$('#generic.modal').hasClass('highscores') ? game.start() : $('#generic.modal').removeClass('highscores');
         $('.ui .highscores').removeClass('active');
-        this.blur();
 
-        if($('#generic.modal .name-form').css('display') !== 'none'){ //input on modal will have "display: none" if a name has been entered into localStorage
+        //input on modal will have "display: none" if a name has been entered into localStorage
+        if($('#generic.modal .name-form').css('display') !== 'none'){ 
             localStorage.setItem('username', $('#generic.modal .name-form').val())
         }
+
+        this.blur();
     }
 }
 
