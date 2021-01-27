@@ -16,6 +16,7 @@ const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(express.json());
+app.use(cors();)
 
 client.connect(async(err) => {
     const collection = client.db("staxx").collection("scores");

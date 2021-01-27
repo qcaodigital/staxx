@@ -29,7 +29,8 @@ const cancelSound = new Howl({
 
 const winbgm = new Howl({
     src: ['../sounds/winbgm.mp3'],
-    volume: 0
+    volume: 0,
+    loop: true
 })
 
 const bgmVol = .4;
@@ -70,7 +71,8 @@ class GameData {
         }
         this.configs = {
             speedReductionRate: .8,
-            activeBlockReductionRate: .35,
+            // activeBlockReductionRate: .35,
+            activeBlockReductionRate: 0,
             timeoutAt: 60,
             sound: {
                 volume: null,
