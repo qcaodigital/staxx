@@ -34,7 +34,7 @@ client.connect(async(err) => {
         res.send(result.data)
     })
 
-    const port = 3000 || process.env.PORT;
+    const port = process.env.PORT || 3000;
     app.listen(port, () => console.log('Server started on port', port))
 
     // ping browser on Express boot, once browser has reconnected and handshaken
