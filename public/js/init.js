@@ -12,3 +12,4 @@ setOrientation();
 $(window).resize(() => {
     setOrientation();
 })
+

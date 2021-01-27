@@ -1,0 +1,90 @@
+.modal {
+    opacity: 1;
+    transition: 350ms ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0);
+    }
+    &__content {
+        transition: 350ms ease;
+        position: absolute;
+        width: 90vw;
+        @media (pointer: coarse){
+            width: 75vw;
+        }
+        max-width: 500px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 5px 5px 10px rgba(0,0,0,.35);
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: var(--box-shadow-glow);
+        h2 {
+            // font-family: 'Abril Fatface', serif;
+            font-size: 1.5rem;
+            opacity: .75;
+            letter-spacing: 2px;
+        }
+        p {
+            margin: 1rem 0;
+            font-size: .85rem;
+            line-height: 1.5rem;
+            letter-spacing: .5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .directions {
+            &::before {
+                @media (pointer: coarse){
+                    content: 'Just tap the screen to drop the blocks!'
+                }
+
+                @media (pointer: fine){
+                    content: 'Just click anywhere or press  \'Spacebar\' to drop the blocks!'
+                }
+            }
+        }
+        button {
+            cursor: pointer;
+            border: 2px solid var(--highlight-color);
+            background-color: transparent;
+            position: relative;
+            padding: .25rem .5rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 0 transparent;
+            transition: 350ms ease;
+            span {
+                transition: inherit;
+                color: rgba(0, 0, 0, .9);
+                font-weight: 600;
+            }
+            &:hover {
+                @media (pointer: fine){
+                    box-shadow: var(--box-shadow-glow);
+                    span {
+                        color: var(--highlight-color);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#generic.highscores {
+    h2 {
+        margin-bottom: 1rem;
+    }
+    p {
+        margin: .5rem;
+    }
+    button {
+        margin-top: .5rem;
+    }
+}

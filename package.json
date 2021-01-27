@@ -11,10 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browser-user-data": "^1.0.9",
     "connect-livereload": "^0.6.1",
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "ejs-lint": "^1.1.0",
     "express": "^4.17.1",
-    "livereload": "^0.9.1"
+    "howler": "^2.2.1",
+    "livereload": "^0.9.1",
+    "mongodb": "^3.6.3"
   }
 }

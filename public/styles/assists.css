@@ -1,0 +1,61 @@
+#assists .modal__content {
+  max-width: 275px;
+}
+
+#assists .modal__content .cheat_list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#assists .modal__content .cheat_list__item p {
+  font-weight: 600;
+  margin-top: .5rem;
+  margin-bottom: 0;
+}
+
+#assists .modal__content .cheat_list__item .selector {
+  cursor: pointer !important;
+  --height: 1.55rem;
+  margin: .25rem auto;
+  width: 3rem;
+  height: var(--height);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+#assists .modal__content .cheat_list__item .selector::before {
+  content: '';
+  display: block;
+  height: calc(var(--height) - 2px);
+  width: calc(var(--height) - 2px);
+  border-radius: 50%;
+  background-color: #f7f7f7;
+  position: absolute;
+  top: calc(50% + 0px);
+  left: 0px;
+  -webkit-transform: translate(0%, -50%);
+          transform: translate(0%, -50%);
+  -webkit-transition: 150ms ease;
+  transition: 150ms ease;
+}
+
+#assists .modal__content .cheat_list__item.active .selector {
+  background-color: var(--highlight-color);
+}
+
+#assists .modal__content .cheat_list__item.active .selector::before {
+  -webkit-transform: translate(calc(100% + 0px), -50%);
+          transform: translate(calc(100% + 0px), -50%);
+}
+
+#assists .modal__content button {
+  margin-top: 1rem;
+}
+/*# sourceMappingURL=assists.css.map */

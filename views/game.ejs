@@ -1,0 +1,62 @@
+<%- include('./partials/header') %>
+    <main>
+        <div class='content'>
+            <header>
+                <img src='/imgs/logo2.png'>
+            </header>
+            <div id='time'>
+                <span id='seconds'>00</span>
+                <span>`</span>
+                <span id='milliseconds'>00</span>
+            </div>
+            <div class='game_window' style='--numRows: <%=`${numRows}`%>; --numCols: <%=`${numCols}`%>' >
+                <% for(let i = numRows; i > 0 ; i--){ %>
+                    <div data-row=<%= `${i}` %> class='row'>
+                        <% for(let j = 0; j < numCols; j++){ %>
+                            <div 
+                                data-row=<%= i %>
+                                data-col=<%= j %>
+                                id=<%= `r${i}c${j}` %> 
+                                class='block'>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+                <div class="ui">
+                    <button class='restart'>
+                        <i class="far fa-play-circle"></i>
+                        <span>Restart</span>
+                    </button>
+                    <!-- <button class='pause'>
+                        <i class="far fa-pause-circle"></i>
+                        <span>Pause</span>
+                    </button> -->
+                    <!-- <button class='end'>
+                        <i class="far fa-stop-circle"></i>
+                        <span>End</span>
+                    </button> -->
+                    <button class='bgm' data-cancel-click='true'>
+                        <i class="fas fa-music"></i>
+                        <span></span>
+                    </button>
+                    <button class='assists' data-cancel-click='true'>
+                        <i class="fas fa-people-carry"></i>
+                        <span>Cheats</span>
+                    </button>
+                    <button class='highscores' data-cancel-click='true'>
+                        <i class="fas fa-star"></i>
+                        <p>Your</p>
+                        <p>Highscores</p>
+                    </button>
+                </div>
+            </div>
+            <div class="assistsMenu">
+                <button id='assists-highlightTargets'>Highlight Target Blocks</button>
+                <button id='assists-highlightTargetPlayRow'>Highlight Play Row Blocks</button>
+                <button id='assists-col'>Highlight Columns</button>
+            </div>
+        </div>
+        <%- include('./partials/modals/assists') %>
+        <%- include('./partials/modals/modal') %>
+    </main>
+<%- include('./partials/footer') %>
