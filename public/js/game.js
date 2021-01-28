@@ -71,13 +71,21 @@ class GameData {
         }
         this.configs = {
             speedReductionRate: .8,
-            activeBlockReductionRate: .35,
-            // activeBlockReductionRate: 0,
+            // activeBlockReductionRate: .3 5,
+            activeBlockReductionRate: 0,
             timeoutAt: 60,
             sound: {
                 volume: null,
                 muted: false,
-                currentSong: 'default'
+                currentSong: 'default',
+                defaultVolumes: {
+                    menuSound: .25,
+                    loseSound: .75,
+                    winSound: .5,
+                    dropSound: .5,
+                    cancelSound: .3,
+                    bgm: .4
+                }
             },
             assists: {
                 highlightTargetPlayRow: assists ? assists.highlightTargetPlayRow : false,
@@ -123,24 +131,32 @@ class GameData {
         }
     }
 
-    playBGM(){
+    playSounds(){
+        const defaultVolumes = this.configs.sound.defaultVolumes;
+
         cancelSound.play();
         this.configs.sound.muted = false;
-        if(this.configs.sound.currentSong === 'default'){
-            bgm.fade(0, bgmVol, 1000)
-        } else if (this.configs.sound.currentSong === 'win'){
-            winbgm.fade(0, bgmVol, 1000)
-        }
+        
+        bgm.fade(0, defaultVolumes.bgm, 1000)
+        winbgm.fade(0, defaultVolumes.bgm, 1000)
+        menuSound.volume(defaultVolumes.menuSound);
+        loseSound.volume(defaultVolumes.loseSound);
+        winSound.volume(defaultVolumes.winSound);
+        dropSound.volume(defaultVolumes.dropSound);
+        cancelSound.volume(defaultVolumes.cancelSound);
     }
 
-    muteBGM(){
+    muteSounds(){
         cancelSound.play();
         this.configs.sound.muted = true;
-        if(this.configs.sound.currentSong === 'default'){
-            bgm.fade(bgmVol, 0, 1000)
-        } else if (this.configs.sound.currentSong === 'win'){
-            winbgm.fade(bgmVol, 0, 1000)
-        }
+
+        bgm.fade(bgmVol, 0, 1000)
+        winbgm.fade(bgmVol, 0, 1000)
+        menuSound.volume(0);
+        loseSound.volume(0);
+        winSound.volume(0);
+        dropSound.volume(0);
+        cancelSound.volume(0);
     }
 
     setTime(start){
@@ -367,7 +383,7 @@ class GameData {
         }
     }
 
-    gameWinAni(){
+    async gameWinAni(){
         //Change song to win song
         if(!this.configs.sound.muted){
             winSound.play();
@@ -392,32 +408,44 @@ class GameData {
             this.currentGameData.gameWon = true;
         })
 
-        //Generate win modal
-        this.currentGameData.timeEnd = Date.now();
-        this.currentGameData.timeElapsed = this.currentGameData.timeEnd - this.currentGameData.timeStart;
+        //Winning time score recorded here
         const timeString = `${(this.time.timeElapsed / -1000).toFixed(0)}.${(this.time.date.getMilliseconds()/10).toFixed(0).padStart(2, '0')}`;
-        this.generateModal({
-            heading: 'You won!',
-            line1: `Your finishing time was <strong>${timeString}</strong> seconds.`,
-            line2: '<i>Try and go for a faster time!</i>',
-            line3: this.currentGameData.cheatUsed ? '<span style="font-size: .75rem">(Your score was not recorded because you had a cheat on)</span>' : null,
-            closeText: 'Play Again!',
-            timeout: 150
-        })
+        let leaderboardScore = false;
 
-        //Record times to localstorage if all assists are off (currently does not detect if it was turned on mid-game and turned off before win)
+        //Record times to localstorage/DB if all assists were off the entire duration of the game
         if(!this.currentGameData.cheatUsed){
             const highScores = localStorage.getItem('high_scores') !== null 
                 ? [...JSON.parse(localStorage.getItem('high_scores')), timeString]
                 : [timeString]
             this.persists.highscores = highScores.sort((a, b) => a - b);
             localStorage.setItem('high_scores', JSON.stringify(highScores))
-        }
 
-        //POST win data to DB
-        axios.post("https://staxxz.herokuapp.com/scores", {time: +timeString, name: localStorage.getItem('username')})
-            .then(resp => console.log(resp))
-            .catch(err => console.log(err))
+            //POST win data to DB
+            const postResults = await axios.post('https://staxxz.herokuapp.com/scores', {time: +timeString, name: localStorage.getItem('username')})
+
+            //GET high scores from db
+            const results = await axios.get('https://staxxz.herokuapp.com/scores'); 
+            const sorted = results.data.sort((a, b) => a.time - b.time);
+
+            //Set score as a leaderboard score if there are less than 10 scores on the board or they beat the 10th fastest time.
+            if(sorted[9] && timeString < sorted[9].time){
+                leaderboardScore = true;
+            } else if (!sorted[9]){
+                leaderboardScore = true;
+            }
+        } 
+
+        //Generate win modal
+        this.currentGameData.timeEnd = Date.now();
+        this.currentGameData.timeElapsed = this.currentGameData.timeEnd - this.currentGameData.timeStart;
+        this.generateModal({
+            heading: 'You won!',
+            line1: `Your finishing time was <strong>${timeString}</strong> seconds ${!leaderboardScore ? 'but you didn\'t make it onto the leaderboard this time!' : '.'}`,
+            line2: leaderboardScore ? 'Congrats! You made it on the leaderboard!' : '<i>Try and go for a faster time!</i>',
+            line3: this.currentGameData.cheatUsed ? '<span style="font-size: .75rem">(Your score was not recorded because you had a cheat on)</span>' : null,
+            closeText: 'Play Again!',
+            timeout: 150
+        })
     }
 
     gameOverAni({ source }){

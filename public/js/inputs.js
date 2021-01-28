@@ -16,7 +16,7 @@ $('.restart').click(function(e){
 $('.bgm').click(function(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     e.stopPropagation();
-    game.configs.sound.muted ? game.playBGM() : game.muteBGM();
+    game.configs.sound.muted ? game.playSounds() : game.muteSounds();
     $(this).toggleClass('muted')
     this.blur();
 })
@@ -111,7 +111,7 @@ $('.leaderboard').click(async function(e){
     e.stopPropagation();
     $(this).addClass('active')
 
-    const results = await axios.get('/scores');
+    const results = await axios.get('https://staxxz.herokuapp.com/scores');
     const sorted = results.data.sort((a, b) => a.time - b.time);
 
     $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
