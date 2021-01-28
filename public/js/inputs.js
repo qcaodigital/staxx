@@ -48,42 +48,7 @@ window.addEventListener('touchstart', e => dropBlocksHandler(e))
 window.addEventListener('touchend', () => spamPreventRelease());
 
 //MODALS//
-$('.assists').click(function(e){ //Listener for assists icon
-    if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
-    e.stopPropagation();
-    if(!game.state.modals.welcomeModalOpen){
-        menuSound.play();
-        $('#assists').toggleClass('hide');
-        $(this).toggleClass('active');
-        game.state.modals.assistsModalOpen = !game.state.modals.assistModalOpen;
-         $('main > .content').addClass('blur');
-        this.blur();
-    }
-})
-
-function closeAssistWindow(e){
-    e.stopPropagation();
-    if(game.state.modals.assistsModalOpen && ([13,27].includes(e.which) || e.type === 'click')){
-        menuSound.play();
-        $('#assists').addClass('hide');
-        $('.assists').removeClass('active');
-        game.state.modals.assistsModalOpen = false;
-        $('main > .content').removeClass('blur')
-        this.blur();
-    }
-}
-$('#assists button').click(closeAssistWindow)
-$(window).keyup(closeAssistWindow)
-
-$('.cheat_list__item div').click(function(e){ //Toggle assists
-    cancelSound.play();
-    e.stopPropagation();
-    $('.cheat_list__item').has(`div[data-assist=${e.target.dataset.assist}]`).toggleClass('active')
-
-    game.configs.assists[e.target.dataset.assist] = !game.configs.assists[e.target.dataset.assist];
-})
-
-//includes welcome, lose game, win game, highscores
+//CLOSE MODAL FUNCTION FOR GENERIC MODALS (WELCOME, WIN, LOSE, TIMEOUT, HIGHSCORE)
 function closeModal(e){
     if(game.state.modals.modalOpen && ([13,27].includes(e.which) || e.type === 'click')){
         e.stopPropagation();
@@ -93,8 +58,8 @@ function closeModal(e){
         $('main > .content').removeClass('blur')
 
         //if the current modal is not the highscores page, it is either the welcome or win/end game modal, so restart game on button click
-        !$('#generic.modal').hasClass('highscores') ? game.start() : $('#generic.modal').removeClass('highscores');
-        $('.ui .highscores').removeClass('active');
+        !$('#generic.modal').is('.highscores') ? game.start() : $('#generic.modal').removeClass('highscores');
+        $('.ui button').removeClass('active');
 
         //input on modal will have "display: none" if a name has been entered into localStorage
         if($('#generic.modal .name-form').css('display') !== 'none'){ 
@@ -112,7 +77,8 @@ $('.highscores').click(function(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     menuSound.play();
     e.stopPropagation();
-    $('.highscores').addClass('active')
+    $(this).addClass('active')
+    
     const highscores = game.persists.highscores;
     game.generateModal({
         heading: 'Your Highscores',
@@ -120,10 +86,80 @@ $('.highscores').click(function(e){
         line2: highscores && highscores[1] ? `2). ${highscores[1]} seconds` : '2). --------- ',
         line3: highscores && highscores[2] ? `3). ${highscores[2]} seconds` : '3). --------- ',
         className: 'highscores',
-        closeText: 'Exit',
-        pause: true
+        closeText: 'Exit'
     })
     this.blur();  
 })
+//------------------//
 
+//LEADER BOARD MODAL//
+function closeLeaderboardModal(e){
+    if(game.state.modals.leaderboardModalOpen && ([13,27].includes(e.which) || e.type === 'click')){
+        game.state.modals.leaderboardModalOpen = !game.state.modals.leaderboardModalOpen;
+        menuSound.play();
+        $('.leaderboard').removeClass('active');
+        $('#leaderboard').addClass('hide');
+        $('main > .content').removeClass('blur');
+        this.blur();
+    }
+}
+
+$('.leaderboard').click(async function(e){
+    if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
+    game.state.modals.leaderboardModalOpen = !game.state.modals.leaderboardModalOpen;
+    menuSound.play();
+    e.stopPropagation();
+    $(this).addClass('active')
+
+    const results = await axios.get('/scores');
+    const sorted = results.data.sort((a, b) => a.time - b.time);
+
+    $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
+    $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
+
+    $('#leaderboard').removeClass('hide');
+    $('main > .content').addClass('blur');
+    this.blur();  
+})
+
+$('#leaderboard button').click(closeLeaderboardModal)
+$(window).keyup(closeLeaderboardModal)
+//------------------//
+
+$('.assists').click(function(e){ //Listener for assists icon
+    if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
+    e.stopPropagation();
+    if(!game.state.modals.welcomeModalOpen){
+        menuSound.play();
+        $('#assists').toggleClass('hide');
+        $(this).toggleClass('active');
+        game.state.modals.assistsModalOpen = !game.state.modals.assistModalOpen;
+         $('main > .content').addClass('blur');
+        this.blur();
+    }
+})
+
+//ASSISTS MODAL//
+function closeAssistModal(e){
+    e.stopPropagation();
+    if(game.state.modals.assistsModalOpen && ([13,27].includes(e.which) || e.type === 'click')){
+        menuSound.play();
+        $('#assists').addClass('hide');
+        $('.assists').removeClass('active');
+        game.state.modals.assistsModalOpen = false;
+        $('main > .content').removeClass('blur')
+        this.blur();
+    }
+}
+$('#assists button').click(closeAssistModal)
+$(window).keyup(closeAssistModal)
+
+$('.cheat_list__item div').click(function(e){ //Toggle assists
+    cancelSound.play();
+    e.stopPropagation();
+    $('.cheat_list__item').has(`div[data-assist=${e.target.dataset.assist}]`).toggleClass('active')
+
+    game.configs.assists[e.target.dataset.assist] = !game.configs.assists[e.target.dataset.assist];
+})
+//------------------//
 //------//

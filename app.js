@@ -1,5 +1,7 @@
+require('dotenv').config();
+const express = require('express');
+const app = express();
 if(process.env.NODE_ENV === 'development'){
-    require('dotenv').config();
     var livereload = require("livereload");
     var connectLivereload = require("connect-livereload");
 
@@ -9,16 +11,11 @@ if(process.env.NODE_ENV === 'development'){
     app.use(connectLivereload());
 }
 
-const express = require('express');
-const app = express();
-// const cors = require('cors');
-
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n.mongodb.net/qcaodigital?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 1, connectTimeoutMS: 30000 });
 
 app.use(express.json());
-// app.use(cors());
 
 client.connect(async(err) => {
     const collection = client.db("staxx").collection("scores");
@@ -32,14 +29,20 @@ client.connect(async(err) => {
         res.render('game', { numRows: numRows, numCols: numCols})
     })
 
+    app.get('/scores', async (req, res) => {
+        const cursor = await collection.find({ name: 'Quan' })
+        const results = []
+        await cursor.forEach(item => results.push(item))
+        res.send(results);
+    })
+
     app.post('/scores', async (req, res) => {
-        console.log(req.body)
         const result = await collection.insertOne({ name: req.body.name,  time: req.body.time })
         res.send(result.data)
     })
 
     const port = process.env.PORT || 3000;
-    app.listen(port, () => console.log('Server started on port', port))
+    app.listen(port, () => console.log('server started'))
 
     if(process.env.NODE_ENV === 'development'){
         // ping browser on Express boot, once browser has reconnected and handshaken

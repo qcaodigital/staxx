@@ -83,3 +83,48 @@
         margin-top: .5rem;
     }
 }
+
+#leaderboard {
+    .modal__content {
+        .grid {
+            margin: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 1rem;
+            ol {
+                display: grid;
+                row-gap: .25rem;
+                list-style: none;
+                counter-reset: item;
+                h3 {
+                    text-decoration: underline;
+                }
+                &.name-list {
+                    li {
+                        counter-increment: item;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        &::before {
+                            // content: counter(item)'.';
+                            position: relative;
+                            left: -50%;
+                        }
+                    }
+                    
+                }
+                &.time-list {
+                    list-style: none;
+                    li {
+                        span {
+                            content: 's';
+                            margin-left: .1rem;
+                            font-size: .75rem;
+                            font-style: italic;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

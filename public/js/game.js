@@ -33,8 +33,8 @@ const winbgm = new Howl({
     loop: true
 })
 
-const bgmVol = .4;
-// const bgmVol = 0;
+// const bgmVol = .4;
+const bgmVol = 0;
 const bgm = new Howl({
     src: ['../sounds/bgm.mp3'],
     loop: true,
@@ -109,6 +109,7 @@ class GameData {
                 welcomeModalOpen: false,
                 assistsModalOpen: false,
                 modalOpen: false,
+                leaderboardModalOpen: false,
             }
         }
         this.time = {
@@ -465,15 +466,15 @@ class GameData {
         this.currentGameData.gameOver = true;
     }
 
-    generateModal({ welcome, heading, line1=null, line2=null, line3=null, closeText='Try again?', timeout=0, className }){
+    generateModal({ welcome, heading, line1, line2, line3, closeText='Try again?', timeout=0, className }){
         $('#generic').addClass(className);
         setTimeout(() => {
             $('main > .content').addClass('blur');
             this.state.modals.modalOpen = true;
             $('#generic .heading').html(heading);
-            $('#generic .line1').html(line1);
-            $('#generic .line2').html(line2);
-            $('#generic .line3').html(line3);
+            $('#generic .line1').html(line1 || null);
+            $('#generic .line2').html(line2 || null);
+            $('#generic .line3').html(line3 || null);
             !welcome ? $('#generic .name-form').hide() : null //dont display input if current modal is not the welcome modal
             $('#generic .close span').html(closeText);
             $('#generic').removeClass('hide');
