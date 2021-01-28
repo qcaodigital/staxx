@@ -18,7 +18,7 @@
                     height: var(--height);
                     border-radius: 1.25rem;
                     border: 1px solid rgba(0,0,0,.1);
-                    background-color: rgba(0,0,0,.3);
+                    background-color: rgba(0,0,0,.1);
                     position: relative;
                     &::before {
                         content: '';
@@ -36,7 +36,7 @@
                 }
                 &.active {
                     .selector {
-                        background-color: var(--highlight-color);
+                        background-color: var(--highlight-color-fade);
                     }
                     .selector::before {
                         transform: translate(calc(100% + 0px), -50%);

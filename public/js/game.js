@@ -33,8 +33,8 @@ const winbgm = new Howl({
     loop: true
 })
 
-const bgmVol = .4;
-// const bgmVol = 0;
+// const bgmVol = .4;
+const bgmVol = 0;
 const bgm = new Howl({
     src: ['../sounds/bgm.mp3'],
     loop: true,
