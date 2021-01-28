@@ -1,0 +1,100 @@
+.ui {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: calc(100% + .9rem);
+    transform: translate(0, -50%);
+    > * + * {
+        margin-top: 1.25rem;
+    }
+    @media screen and (min-width: 750px){
+        left: calc(100% + 1.5rem);
+    }
+    button {
+        cursor: pointer;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        text-shadow: 0 0 .35rem rgba(0,0,0,.4);
+        --color: rgba(4, 19, 26, 0.8);
+        color: var(--color);
+        font-size: 1.5rem;
+        position: relative;
+        transition: 100ms linear;
+        animation: onload 1s ease 1;
+        @for $i from 1 through 10 {
+            &:nth-of-type(#{$i}){
+                animation-delay: 100ms + (200ms * $i);
+            }
+        }
+        @keyframes onload {
+            0% {
+                color: var(--color);
+            }
+            50% {
+                color: var(--highlight-color);
+                text-shadow: var(--box-shadow-glow);
+            }
+            100% {
+                color: var(--color);
+            }
+        }
+        &.active {
+            color: var(--highlight-color);
+            text-shadow: var(--box-shadow-glow);
+        }
+        &:hover {
+            text-shadow: var(--box-shadow-glow);
+            @media (pointer: fine){
+                color: var(--highlight-color);
+            }
+        }
+        @media screen and (min-width: 750px){
+            font-size: 1.75rem;
+        }
+        span, p {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: .65rem;
+            white-space: nowrap;
+            @media screen and (min-width: 750px){
+                font-size: .75rem;
+            }
+        }
+        p {
+            position: relative;
+        }
+        &.bgm {
+            span {
+                &::after {
+                    content: 'Sound On';
+                    white-space: nowrap;
+                }
+            }
+        }
+        &.bgm.muted {
+            text-shadow: 0 0 .5rem rgba(190, 29, 29, .5);
+            color: rgb(190, 29, 29);
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-45deg);
+                width: 100%;
+                height: 2px;
+                background-color:rgb(190, 29, 29);
+            }
+            span {
+                &::after {
+                    content: 'Sound Off';
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

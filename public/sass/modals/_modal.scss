@@ -1,3 +1,5 @@
+@import "./assists" ;
+
 .modal {
     opacity: 1;
     transition: 350ms ease;
@@ -28,7 +30,6 @@
         text-align: center;
         box-shadow: var(--box-shadow-glow);
         h2 {
-            // font-family: 'Abril Fatface', serif;
             font-size: 1.5rem;
             opacity: .75;
             letter-spacing: 2px;
@@ -38,7 +39,7 @@
             font-size: .85rem;
             line-height: 1.5rem;
             letter-spacing: .5px;
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--sans);
         }
         input {
             display: block;

@@ -112,7 +112,7 @@ class GameData {
         this.state = {
             keydown: false,
             spamPrevent: false,
-            spamPreventDuration: 0,
+            spamPreventDuration:   0,
             modals: {
                 welcomeModalOpen: false,
                 assistsModalOpen: false,
@@ -211,6 +211,7 @@ class GameData {
         clearInterval(this.time.interval)
         Object.keys(this.time).forEach(key => this.time[key] = '00');
         this.changeDisplayTime(this.time.timeElapsedSeconds, this.time.timeElapsedMS);
+        $('#time').addClass('hide'); 
 
         //reset all blocks to normal state
         this.dom.allBlocks.forEach(block => $(block).removeClass().addClass('block'));
@@ -331,6 +332,7 @@ class GameData {
         if(this.currentGameData.currentRow === 1){ 
             this.time.gameStart = Date.now()
             this.time.interval = setInterval(this.setTime.bind(this, this.time.gameStart), 10);
+            $('#time').removeClass('hide');    
         }
 
         this.currentGameData.missedBlocks = 0;

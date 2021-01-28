@@ -1,10 +1,12 @@
 <%- include('./partials/header') %>
     <main>
         <div class='content'>
-            <header>
-                <img src='/imgs/logo2.png'>
+            <header id='logo'>
+                <h1>
+                    Staxx
+                </h1>
             </header>
-            <div id='time'>
+            <div id='time' class='hide'>
                 <span id='seconds'>00</span>
                 <span>`</span>
                 <span id='milliseconds'>00</span>
@@ -27,14 +29,6 @@
                         <i class="far fa-play-circle"></i>
                         <span>Restart</span>
                     </button>
-                    <!-- <button class='pause'>
-                        <i class="far fa-pause-circle"></i>
-                        <span>Pause</span>
-                    </button> -->
-                    <!-- <button class='end'>
-                        <i class="far fa-stop-circle"></i>
-                        <span>End</span>
-                    </button> -->
                     <button class='bgm' data-cancel-click='true'>
                         <i class="fas fa-music"></i>
                         <span></span>
@@ -43,21 +37,16 @@
                         <i class="fas fa-people-carry"></i>
                         <span>Cheats</span>
                     </button>
+                    <button class='leaderboard' data-cancel-click='true'>
+                        <i class="fas fa-trophy"></i>
+                        <span>Leaderboard</span>
+                    </button>
                     <button class='highscores' data-cancel-click='true'>
                         <i class="fas fa-star"></i>
                         <p>Your</p>
                         <p>Highscores</p>
                     </button>
-                    <button class='leaderboard' data-cancel-click='true'>
-                        <i class="fas fa-trophy"></i>
-                        <span>Leaderboard</span>
-                    </button>
                 </div>
-            </div>
-            <div class="assistsMenu">
-                <button id='assists-highlightTargets'>Highlight Target Blocks</button>
-                <button id='assists-highlightTargetPlayRow'>Highlight Play Row Blocks</button>
-                <button id='assists-col'>Highlight Columns</button>
             </div>
         </div>
         <%- include('./partials/modals/assists') %>

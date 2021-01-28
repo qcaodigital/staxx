@@ -1,0 +1,43 @@
+#logo {
+    margin: var(--gap) var(--shift-left) calc(var(--gap) * -1) 0;
+    h1 {
+        --main: rgba(0,0,0,.75);
+        font-size: 4rem;
+        font-family: var(--serif);
+        color: var(--main);
+        text-shadow: 0 0 2px rgba(0,0,0,.5), var(--box-shadow-glow), .3rem .3rem 0 var(--highlight-color);
+        letter-spacing: .25rem;
+        position: relative;
+        z-index: 1;
+        &::before,
+        &::after {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            background-color: var(--highlight-color);
+            position: absolute;
+            top: .25rem;
+            right: calc(100% - 1rem);
+            z-index: -1;
+            border: 2px solid #C7A9D8;
+            box-shadow: var(--box-shadow-glow-inset);
+        }
+        &::after {
+            top: calc(2.25rem + 3px);
+        }
+        &::before {
+            animation: logoLoad 500ms ease-in 1;
+            animation-delay: 1s;
+            animation-fill-mode: backwards;
+            @keyframes logoLoad {
+                0% {
+                    transform: translateY(-10rem);
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+}
