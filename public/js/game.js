@@ -112,7 +112,7 @@ class GameData {
         this.state = {
             keydown: false,
             spamPrevent: false,
-            spamPreventDuration: 100,
+            spamPreventDuration: 0,
             modals: {
                 welcomeModalOpen: false,
                 assistsModalOpen: false,
