@@ -4,7 +4,7 @@ const game = new GameData({
     speed: window.innerWidth > window.innerHeight ? 55 : 70
 });
 
-game.load();
+game.onload();
 
 $('.restart').click(function(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;

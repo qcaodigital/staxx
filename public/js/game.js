@@ -162,13 +162,16 @@ class GameData {
     setTime(start){
         this.time.date = new Date();
         this.time.timeElapsed = (start - this.time.date.getTime());
+
+        //parse times into legible seconds and milliseconds
         this.time.timeElapsedSeconds = (this.time.timeElapsed / -1000).toFixed(0).padStart(2, '0');
         this.time.timeElapsedMS = (this.time.date.getMilliseconds()/10).toFixed(0).padStart(2, '0');
+
         // dont allow milliseconds to display 100 due to third digit
         this.time.timeElapsedMS = this.time.timeElapsedMS === '100' ? '99' : this.time.timeElapsedMS;
         this.changeDisplayTime(this.time.timeElapsedSeconds, this.time.timeElapsedMS);
 
-        // game timeout
+        // game timeout @
         if(this.time.timeElapsedSeconds == this.configs.timeoutAt){
             this.gameOverAni({ source: 'timeout' });
             this.changeDisplayTime(60, 0)
@@ -197,21 +200,25 @@ class GameData {
             loseSound.stop();
         }
 
+        //reset game data on reset
         clearInterval(this.currentGameData.interval);
         this.currentGameData = {
             ...this.defaults,
             lastActiveBlock: this.defaults.numStartActiveBlocks + this.defaults.startingActiveBlock,
         }
 
+        //reset timer
         clearInterval(this.time.interval)
         Object.keys(this.time).forEach(key => this.time[key] = '00');
         this.changeDisplayTime(this.time.timeElapsedSeconds, this.time.timeElapsedMS);
+
+        //reset all blocks to normal state
         this.dom.allBlocks.forEach(block => $(block).removeClass().addClass('block'));
     }
 
-    load(){
+    onload(){
         this.currentGameData.inProgress = true; 
-        this.currentGameData.interval = setInterval(this.frameInterval.bind(this), this.currentGameData.currentSpeed);
+        this.currentGameData.interval = setInterval(this.playNextFrame .bind(this), this.currentGameData.currentSpeed);
 
         //Only open welcome modal if a username has not been previously entered / localStorage has been cleared
         if(!localStorage.getItem('username')){
@@ -231,7 +238,7 @@ class GameData {
 
         if(!this.currentGameData.inProgress){
             this.currentGameData.inProgress = true;
-            this.currentGameData.interval = setInterval(this.frameInterval.bind(this), this.currentGameData.currentSpeed);
+            this.currentGameData.interval = setInterval(this.playNextFrame.bind(this), this.currentGameData.currentSpeed);
         }
     }
 
@@ -239,10 +246,6 @@ class GameData {
         clearInterval(this.currentGameData.interval)
         clearInterval(this.time.interval)
         this.currentGameData.inProgress = false;
-    }
-
-    frameInterval(){
-        this.playNextFrame();
     }
 
     playNextFrame(){
@@ -320,9 +323,11 @@ class GameData {
     }
 
     dropBlocks(){
+        dropSound.play(); 
+        //prevent block drop if any modals are open
         if(Object.keys(this.state.modals).some(key => this.state.modals[key] === true)) return;
 
-        dropSound.play(); 
+        //initiate timer on first drop
         if(this.currentGameData.currentRow === 1){ 
             this.time.gameStart = Date.now()
             this.time.interval = setInterval(this.setTime.bind(this, this.time.gameStart), 10);
@@ -371,6 +376,7 @@ class GameData {
            this.gameWinAni();
         //CONTINUE PLAYING
         } else {
+            //at one single active block, block bounces off walls instead of overflowing outside of it
             this.currentGameData.sideOverflow = this.currentGameData.numStartActiveBlocks < 1
                 ? 0
                 : this.currentGameData.sideOverflow;
