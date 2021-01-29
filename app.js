@@ -36,7 +36,6 @@ client.connect(async(err) => {
             const cursor = await collection.find({ time: { $gt: 0 }})
             const results = []
             await cursor.forEach(item => results.push(item))
-            console.log(results)
             res.send(results);
         } catch(err) {
             console.log(err)

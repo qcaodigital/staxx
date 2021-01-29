@@ -430,7 +430,11 @@ class GameData {
 
             //POST win data to DB
             const proxy = 'https://cors-anywhere.herokuapp.com/';
-            const postResults = await axios.post(proxy + 'https://staxxz.herokuapp.com/scores', {time: +timeString, name: localStorage.getItem('username')})
+            try {
+                const postResults = await axios.post('https://staxxz.herokuapp.com/scores', {time: +timeString, name: localStorage.getItem('username')})
+            } catch (err){
+                console.log(err)
+            }
 
             //GET high scores from db
             const results = await axios.get(proxy + 'https://staxxz.herokuapp.com/scores'); 
