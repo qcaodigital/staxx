@@ -429,10 +429,11 @@ class GameData {
             localStorage.setItem('high_scores', JSON.stringify(highScores))
 
             //POST win data to DB
-            const postResults = await axios.post('https://staxxz.herokuapp.com/scores', {time: +timeString, name: localStorage.getItem('username')})
+            const proxy = 'https://cors-anywhere.herokuapp.com/';
+            const postResults = await axios.post(proxy + 'https://staxxz.herokuapp.com/scores', {time: +timeString, name: localStorage.getItem('username')})
 
             //GET high scores from db
-            const results = await axios.get('https://staxxz.herokuapp.com/scores'); 
+            const results = await axios.get(proxy + 'https://staxxz.herokuapp.com/scores'); 
             const sorted = results.data.sort((a, b) => a.time - b.time);
 
             //Set score as a leaderboard score if there are less than 10 scores on the board or they beat the 10th fastest time.

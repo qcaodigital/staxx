@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 if(process.env.NODE_ENV === 'development'){
     var livereload = require("livereload");
     var connectLivereload = require("connect-livereload");
@@ -16,6 +17,7 @@ const uri = `mongodb+srv://qcaodigital:${process.env.MONGO_PW}@qcaodigital.vys9n
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, keepAlive: 1, connectTimeoutMS: 30000 });
 
 app.use(express.json());
+app.use(cors());
 
 client.connect(async(err) => {
     const collection = client.db("staxx").collection("scores");
@@ -30,10 +32,15 @@ client.connect(async(err) => {
     })
 
     app.get('/scores', async (req, res) => {
-        const cursor = await collection.find({ name: 'Quan' })
-        const results = []
-        await cursor.forEach(item => results.push(item))
-        res.send(results);
+        try {
+            const cursor = await collection.find({ time: { $gt: 0 }})
+            const results = []
+            await cursor.forEach(item => results.push(item))
+            console.log(results)
+            res.send(results);
+        } catch(err) {
+            console.log(err)
+        }
     })
 
     app.post('/scores', async (req, res) => {
