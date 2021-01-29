@@ -494,6 +494,7 @@ class GameData {
             })
             //Only open the timeout modal if game times out and no modal is currenty open - otherwise just timeout without notification
             if(Object.keys(this.state.modals).every(key => !this.state.modals[key])){
+                loseSound.play();
                 this.generateModal({
                     heading: 'Where\'d you go?',
                     line1: `Your game timed out (maximum game time is 60 seconds).`,

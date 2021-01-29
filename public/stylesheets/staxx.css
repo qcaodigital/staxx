@@ -90,7 +90,7 @@ p, h1, h2, h3, h4, h5, h6, li, span, a {
     border-bottom-left-radius: 0;
     border-top-left-radius: 7.5%;
     border-top-right-radius: 7.5%;
-    max-width: 150px;
+    width: 100px;
   }
 }
 #time.hide {
@@ -107,6 +107,11 @@ p, h1, h2, h3, h4, h5, h6, li, span, a {
   font-size: 1rem;
   letter-spacing: 1.25px;
 }
+@media screen and (min-width: 550px) {
+  #time span {
+    font-size: 1.5rem;
+  }
+}
 #time span:nth-of-type(2) {
   margin: 0 0;
 }
@@ -114,6 +119,11 @@ p, h1, h2, h3, h4, h5, h6, li, span, a {
   font-size: 0.5rem;
   margin-top: 0.5rem;
   width: 0.5rem;
+}
+@media screen and (min-width: 550px) {
+  #time span#milliseconds {
+    font-size: 0.75rem;
+  }
 }
 
 .ui {

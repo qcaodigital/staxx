@@ -21,7 +21,7 @@
         border-bottom-left-radius: 0;
         border-top-left-radius: 7.5%;
         border-top-right-radius: 7.5%;
-        max-width: 150px;
+        width: 100px;
     }
     &.hide {
         box-shadow: unset; 
@@ -34,6 +34,9 @@
         display: inline-block;
         font-size: 1rem;
         letter-spacing: 1.25px;
+        @media screen and (min-width: 550px){
+            font-size: 1.5rem;
+        }
         &:nth-of-type(2){
             margin: 0 0;
         }
@@ -41,6 +44,9 @@
             font-size: .5rem; 
             margin-top: .5rem;
             width: .5rem;
+            @media screen and (min-width: 550px){
+                font-size: .75rem;
+            }
         }
     }
 }
