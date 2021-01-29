@@ -42,8 +42,8 @@ function spamPreventRelease(){
 
 $(window).keydown(e => dropBlocksHandler(e))
 $(window).keyup(() => spamPreventRelease());
-$(window).mousedown(e => dropBlocksHandler(e))
-$(window).mouseup(() => spamPreventRelease());
+$(window).mousedown(e => e.which === 1 && dropBlocksHandler(e))
+$(window).mouseup(e => e.which === 1 && spamPreventRelease());
 window.addEventListener('touchstart', e => dropBlocksHandler(e))
 window.addEventListener('touchend', () => spamPreventRelease());
 
