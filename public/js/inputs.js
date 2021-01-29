@@ -118,7 +118,7 @@ $('.leaderboard').click(async function(e){
         $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
         $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
     } catch(err){
-        alert(err);
+        console.log(err);
     }
     $('#leaderboard').removeClass('hide');
     $('main > .content').addClass('blur');
