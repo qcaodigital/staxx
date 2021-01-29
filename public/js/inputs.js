@@ -115,7 +115,6 @@ $('.leaderboard').click(async function(e){
         const proxy = 'https://cors-anywhere.herokuapp.com/'
         const results = await axios.get(proxy + 'https://staxxz.herokuapp.com/scores');
         const sorted = results.data.sort((a, b) => a.time - b.time);
-        console.log(sorted)
 
         $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
         $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
