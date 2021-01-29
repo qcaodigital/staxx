@@ -111,12 +111,15 @@ $('.leaderboard').click(async function(e){
     e.stopPropagation();
     $(this).addClass('active')
 
-    const results = await axios.get('https://staxxz.herokuapp.com/scores');
-    const sorted = results.data.sort((a, b) => a.time - b.time);
+    try {
+        const results = await axios.get('https://staxxz.herokuapp.com/scores');
+        const sorted = results.data.sort((a, b) => a.time - b.time);
 
-    $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
-    $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
-
+        $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
+        $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
+    } catch(err){
+        alert(err);
+    }
     $('#leaderboard').removeClass('hide');
     $('main > .content').addClass('blur');
     this.blur();  
