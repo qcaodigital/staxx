@@ -71,6 +71,34 @@
             }
         }
     }
+    .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            display: block;
+            padding: 2rem;
+            border-radius: .25rem;
+            // transition: 350ms ease;
+            i {
+                animation: spin 1s ease-in-out infinite;
+                @keyframes spin {
+                    0% {
+                        transform: rotate(0);
+                    }
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+            p {
+                margin: .5rem;
+            }
+            &.hide {
+                opacity: 0;
+            }
+        }
 }
 
 #generic.highscores {
@@ -92,25 +120,19 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             row-gap: 1rem;
+            transition: 350ms ease;
             ol {
                 display: grid;
                 row-gap: .25rem;
                 list-style: none;
-                counter-reset: item;
                 h3 {
                     text-decoration: underline;
                 }
                 &.name-list {
                     li {
-                        counter-increment: item;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        &::before {
-                            content: counter(item)'.';
-                            position: relative;
-                            left: -50%;
-                        }
                     }
                     
                 }
@@ -125,13 +147,6 @@
                         }
                     }
                 }
-            }
-            .loader {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 3rem;
             }
         }
     }

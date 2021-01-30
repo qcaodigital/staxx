@@ -5,23 +5,26 @@ const game = new GameData({
 });
 
 game.onload();
-
-$('.restart').click(function(e){
+function restartGame(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     game.start();
     e.stopPropagation();
     this.blur();
-})
+}
 
-$(document).on('visibilitychange', () => document.visibilityState === 'visible' ? game.playSounds() : game.muteSounds())
-$('.bgm').click(function(e){
+$('.restart').click(restartGame)
+
+function toggleSound(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     cancelSound.play();
     e.stopPropagation();
     game.configs.sound.muted ? game.playSounds() : game.muteSounds();
     $(this).toggleClass('muted')
     this.blur();
-})
+}
+
+$('.bgm').click(toggleSound)
+$(document).on('visibilitychange', () => document.visibilityState === 'visible' ? game.playSounds() : game.muteSounds())
 
 function dropBlocksHandler(e){
     if(e.target.parentElement.localName === "button" || e.target.tagName === "BUTTON") return;
@@ -75,7 +78,7 @@ function closeModal(e){
 $('#generic.modal .close').click(closeModal);
 $(window).keyup(closeModal)
 
-$('.highscores').click(function(e){
+function toggleHighscoreModal(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     menuSound.play();
     e.stopPropagation();
@@ -91,7 +94,8 @@ $('.highscores').click(function(e){
         closeText: 'Exit'
     })
     this.blur();  
-})
+}
+$('.highscores').click(toggleHighscoreModal)
 //------------------//
 
 //LEADER BOARD MODAL//
@@ -102,15 +106,14 @@ function closeLeaderboardModal(e){
         $('.leaderboard').removeClass('active');
         $('#leaderboard').addClass('hide');
         $('main > .content').removeClass('blur');
+        setTimeout(() => {
+            $('#leaderboard .loader').removeClass('hide');
+        }, 500);
         this.blur();
     }
 }
 
-async function getLeaderboard(){
-    
-}
-
-$('.leaderboard').click(async function(e){
+function openLeaderboardModal(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     game.state.modals.leaderboardModalOpen = !game.state.modals.leaderboardModalOpen;
     menuSound.play();
@@ -124,29 +127,37 @@ $('.leaderboard').click(async function(e){
     const namePlaceholder = '---------';
     const timePlaceholder = '---';
 
+    $('#leaderboard .grid').css('opacity', '.25');
     $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(namePlaceholder))
     $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(timePlaceholder))
 
     try {
         setTimeout(async () => {
-            
-        const results = await axios.get('https://staxxz.herokuapp.com/scores');
-        const sorted = results.data.sort((a, b) => a.time - b.time);
+            const results = await axios.get('https://staxxz.herokuapp.com/scores');
+            const sorted = results.data.sort((a, b) => a.time - b.time);
 
-        $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : namePlaceholder))
-        $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
-        }, 5000);
+            const stagger = 100;
+            $('#leaderboard .loader').addClass('hide');
+            $('#leaderboard .grid').css('opacity', '1');
+            $('#leaderboard .name-list li').toArray().forEach((li, idx) => {
+                setTimeout(() => sorted[idx] && $(li).hide().html(sorted[idx] ? sorted[idx].name : namePlaceholder).fadeIn(), stagger * idx);
+            })
+            $('#leaderboard .time-list li').toArray().forEach((li, idx) => {
+                setTimeout(() => sorted[idx] && $(li).hide().html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---').fadeIn(), stagger * idx);
+            })
+        }, (Math.random() * 1000) + 250);
     } catch(err){
         console.log(err);
     }
     
-})
+}
 
+$('.leaderboard').click(openLeaderboardModal)
 $('#leaderboard button').click(closeLeaderboardModal)
 $(window).keyup(closeLeaderboardModal)
 //------------------//
-
-$('.assists').click(function(e){ //Listener for assists icon
+//ASSISTS MODAL//
+function openAssistsModal(e) { //Listener for assists icon
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     e.stopPropagation();
     if(!game.state.modals.welcomeModalOpen){
@@ -157,9 +168,8 @@ $('.assists').click(function(e){ //Listener for assists icon
          $('main > .content').addClass('blur');
         this.blur();
     }
-})
+}
 
-//ASSISTS MODAL//
 function closeAssistModal(e){
     e.stopPropagation();
     if(game.state.modals.assistsModalOpen && ([13,27].includes(e.which) || e.type === 'click')){
@@ -171,15 +181,19 @@ function closeAssistModal(e){
         this.blur();
     }
 }
-$('#assists button').click(closeAssistModal)
-$(window).keyup(closeAssistModal)
 
-$('.cheat_list__item div').click(function(e){ //Toggle assists
+function toggleAssists(e){
     cancelSound.play();
     e.stopPropagation();
     $('.cheat_list__item').has(`div[data-assist=${e.target.dataset.assist}]`).toggleClass('active')
 
     game.configs.assists[e.target.dataset.assist] = !game.configs.assists[e.target.dataset.assist];
-})
+}
+
+$('.assists').click(openAssistsModal)
+$('#assists button').click(closeAssistModal)
+$(window).keyup(closeAssistModal)
+$('.cheat_list__item div').click(toggleAssists)
+
 //------------------//
 //------//
