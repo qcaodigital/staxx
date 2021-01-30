@@ -125,7 +125,6 @@ $('.leaderboard').click(async function(e){
     $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html('loading'))
 
     try {
-        // const proxy = 'https://cors-anywhere.herokuapp.com/'
         const results = await axios.get('https://staxxz.herokuapp.com/scores');
         const sorted = results.data.sort((a, b) => a.time - b.time);
 
