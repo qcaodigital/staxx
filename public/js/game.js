@@ -133,8 +133,6 @@ class GameData {
 
     playSounds(){
         const defaultVolumes = this.configs.sound.defaultVolumes;
-
-        cancelSound.play();
         this.configs.sound.muted = false;
         
         bgm.fade(0, defaultVolumes.bgm, 1000)
@@ -147,7 +145,6 @@ class GameData {
     }
 
     muteSounds(){
-        cancelSound.play();
         this.configs.sound.muted = true;
 
         bgm.fade(bgmVol, 0, 1000)

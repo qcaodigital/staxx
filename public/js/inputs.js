@@ -13,8 +13,10 @@ $('.restart').click(function(e){
     this.blur();
 })
 
+$(document).on('visibilitychange', () => document.visibilityState === 'visible' ? game.playSounds() : game.muteSounds())
 $('.bgm').click(function(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
+    cancelSound.play();
     e.stopPropagation();
     game.configs.sound.muted ? game.playSounds() : game.muteSounds();
     $(this).toggleClass('muted')
@@ -104,6 +106,10 @@ function closeLeaderboardModal(e){
     }
 }
 
+async function getLeaderboard(){
+    
+}
+
 $('.leaderboard').click(async function(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
     game.state.modals.leaderboardModalOpen = !game.state.modals.leaderboardModalOpen;
@@ -111,9 +117,16 @@ $('.leaderboard').click(async function(e){
     e.stopPropagation();
     $(this).addClass('active')
 
+    $('#leaderboard').removeClass('hide');
+    $('main > .content').addClass('blur');
+    this.blur();
+
+    $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html('loading'))
+    $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html('loading'))
+
     try {
-        const proxy = 'https://cors-anywhere.herokuapp.com/'
-        const results = await axios.get(proxy + 'https://staxxz.herokuapp.com/scores');
+        // const proxy = 'https://cors-anywhere.herokuapp.com/'
+        const results = await axios.get('https://staxxz.herokuapp.com/scores');
         const sorted = results.data.sort((a, b) => a.time - b.time);
 
         $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
@@ -121,9 +134,7 @@ $('.leaderboard').click(async function(e){
     } catch(err){
         console.log(err);
     }
-    $('#leaderboard').removeClass('hide');
-    $('main > .content').addClass('blur');
-    this.blur();  
+    
 })
 
 $('#leaderboard button').click(closeLeaderboardModal)
