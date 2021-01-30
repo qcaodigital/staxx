@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "watch": "nodemon --ignore public"
+    "watch-scss": "sass --watch public/sass/staxx.scss:public/stylesheets/staxx.css",
+    "watch": "nodemon --ignore public",
+    "dev": "start npm run watch & start npm run watch-scss"
   },
   "keywords": [],
   "author": "",

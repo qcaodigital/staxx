@@ -453,6 +453,7 @@ p, h1, h2, h3, h4, h5, h6, li, span, a {
   text-overflow: ellipsis;
 }
 #leaderboard .modal__content .grid ol.name-list li::before {
+  content: counter(item) ".";
   position: relative;
   left: -50%;
 }
@@ -464,6 +465,13 @@ p, h1, h2, h3, h4, h5, h6, li, span, a {
   margin-left: 0.1rem;
   font-size: 0.75rem;
   font-style: italic;
+}
+#leaderboard .modal__content .grid .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
 }
 
 #logo {

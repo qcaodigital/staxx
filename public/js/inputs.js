@@ -121,15 +121,21 @@ $('.leaderboard').click(async function(e){
     $('main > .content').addClass('blur');
     this.blur();
 
-    $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html('loading'))
-    $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html('loading'))
+    const namePlaceholder = '---------';
+    const timePlaceholder = '---';
+
+    $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(namePlaceholder))
+    $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(timePlaceholder))
 
     try {
+        setTimeout(async () => {
+            
         const results = await axios.get('https://staxxz.herokuapp.com/scores');
         const sorted = results.data.sort((a, b) => a.time - b.time);
 
-        $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : '---------'))
+        $('#leaderboard .name-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx] ? sorted[idx].name : namePlaceholder))
         $('#leaderboard .time-list li').toArray().forEach((li, idx) => $(li).html(sorted[idx]  ? `${sorted[idx].time}<span>s</span>` : '---'))
+        }, 5000);
     } catch(err){
         console.log(err);
     }
