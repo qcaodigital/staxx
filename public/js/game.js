@@ -71,8 +71,8 @@ class GameData {
         }
         this.configs = {
             speedReductionRate: .8,
-            // activeBlockReductionRate: .35,
-            activeBlockReductionRate: 0,
+            activeBlockReductionRate: .35,
+            // activeBlockReductionRate: 0,
             timeoutAt: 60,
             sound: {
                 volume: null,
