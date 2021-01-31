@@ -182,7 +182,6 @@ class GameData {
 
     //reset all data in currentGameData to defaults
     init(){
-        cancelSound.play();
         if(this.configs.sound.currentSong === 'win'){
             winbgm.stop();  
             bgm.play();

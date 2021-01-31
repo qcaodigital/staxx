@@ -7,6 +7,7 @@ const game = new GameData({
 game.onload();
 function restartGame(e){
     if(Object.keys(game.state.modals).some(key => game.state.modals[key] === true)) return;
+    cancelSound.play();
     game.start();
     e.stopPropagation();
     this.blur();
