@@ -57,13 +57,27 @@ window.addEventListener('touchend', () => spamPreventRelease());
 function closeModal(e){
     if(game.state.modals.modalOpen && ([13,27].includes(e.which) || e.type === 'click')){
         e.stopPropagation();
+        //validate name form for welcome modal
+        if($('#generic.modal').hasClass('welcome')){
+            const input = $('#generic.modal .name-form');
+            if(input.val().length <= 1){
+                cancelSound.play();
+                input.addClass('invalid').val('').attr('placeholder', 'Please enter a valid name');
+                return;
+            } else {
+                input.removeClass('invalid');
+            }
+        }
         menuSound.play();
         game.state.modals.modalOpen = false;  
         $('#generic.modal').addClass('hide');
         $('main > .content').removeClass('blur')
 
         //if the current modal is not the highscores page, it is either the welcome or win/end game modal, so restart game on button click
-        !$('#generic.modal').is('.highscores') ? game.start() : $('#generic.modal').removeClass('highscores');
+        //timeout so that specific class styles are not removed before exit animation is complete
+        setTimeout(() => {
+            !$('#generic.modal').is('.highscores, .welcome') ? game.start() : $('#generic.modal').removeClass('highscores welcome');
+        }, 500);
         $('.ui button').removeClass('active');
 
         //input on modal will have "display: none" if a name has been entered into localStorage

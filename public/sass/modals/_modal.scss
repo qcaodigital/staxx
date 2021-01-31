@@ -101,6 +101,42 @@
         }
 }
 
+#generic.welcome {
+    .modal__content {
+        input {
+            background-color: var(--highlight-color-fade-more);
+            border: 1px solid var(--highlight-color);
+            text-align: center;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: rgba(0,0,0,.75);
+            &::placeholder {
+                font-weight: 400;
+                color: black;
+            }
+            &.invalid {
+                transition: 150ms ease;
+                animation: flashInvalid 350ms ease forwards;
+                @keyframes flashInvalid {
+                    0% {
+                        background-color: var(--highlight-color-fade-more)
+                    }
+                    25% {
+                        background-color: rgba(216, 22, 22, 0.3);
+                    }
+                    50% {
+                        background-color: var(--highlight-color-fade-more)
+                    }
+                    100% {
+                        background-color: rgba(216, 22, 22, 0.3);
+                    }
+                }
+                // background-color: rgba(216, 22, 22, 0.3);
+            }
+        }
+    }
+}
+
 #generic.highscores {
     h2 {
         margin-bottom: 1rem;

@@ -221,6 +221,7 @@ class GameData {
         //Only open welcome modal if a username has not been previously entered / localStorage has been cleared
         if(!localStorage.getItem('username')){
             this.generateModal({
+                className: 'welcome',
                 welcome: true,
                 heading: '<u style="font-family: \'Abril Fatface\'">Welcome to Staxx</u>', 
                 line1: 'The objective of <strong>STAXX</strong> is to stack the blocks to the top of the grid. That\'s all! You only have one shot per row though so if you miss, you\'ll have to start over. Not to mention the game will get harder as you progress.',

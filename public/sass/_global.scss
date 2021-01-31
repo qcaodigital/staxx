@@ -31,10 +31,13 @@ ul, ol {
     list-style: none;
 }
 
-p, h1, h2, h3, h4, h5, h6, li, span, a {
+p, h1, h2, h3, h4, h5, h6, li, span, a, input {
     margin: 0;
     font-family: var(--sans);
 }
 
-
+input {
+    outline: none;
+    border: none;
+}
 
