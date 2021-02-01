@@ -56,7 +56,7 @@ window.addEventListener('touchend', () => spamPreventRelease());
 //MODALS//
 //CLOSE MODAL FUNCTION FOR GENERIC MODALS (WELCOME, WIN, LOSE, TIMEOUT, HIGHSCORE)
 function closeModal(e){
-    if(game.state.modals.modalOpen && ([13,27].includes(e.which) || e.type === 'click')){
+    if(game.state.modals .modalOpen && ([13,27].includes(e.which) || e.type === 'click')){
         e.stopPropagation();
         //validate name form for welcome modal
         if($('#generic.modal').hasClass('welcome')){

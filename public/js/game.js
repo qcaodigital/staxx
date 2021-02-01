@@ -182,6 +182,9 @@ class GameData {
 
     //reset all data in currentGameData to defaults
     init(){
+        //reset all blocks to normal state
+        this.dom.allBlocks.forEach(block => $(block).removeClass().addClass('block'));
+
         if(this.configs.sound.currentSong === 'win'){
             winbgm.stop();  
             bgm.play();
@@ -209,8 +212,6 @@ class GameData {
         this.changeDisplayTime(this.time.timeElapsedSeconds, this.time.timeElapsedMS);
         $('#time').addClass('hide'); 
 
-        //reset all blocks to normal state
-        this.dom.allBlocks.forEach(block => $(block).removeClass().addClass('block'));
     }
 
     onload(){
@@ -223,7 +224,7 @@ class GameData {
                 className: 'welcome',
                 welcome: true,
                 heading: '<u style="font-family: \'Abril Fatface\'">Welcome to Staxx</u>', 
-                line1: 'The objective of <strong>STAXX</strong> is to stack the blocks to the top of the grid. That\'s all! You only have one shot per row though so if you miss, you\'ll have to start over. Not to mention the game will get harder as you progress.',
+                line1: 'The objective of <strong>STAXX</strong> is to stack the blocks to the top of the grid. That\'s all! You only have one shot per row though so if you miss the top block, you\'ll have to start over. Not to mention the game will get harder as you progress.',
                 line2: 'Just press click/tap anywhere or press space bar to drop the blocks and get to the top!', 
                 closeText: 'Play Staxx!' 
             })
@@ -436,9 +437,9 @@ class GameData {
             const sorted = results.data.sort((a, b) => a.time - b.time);
 
             //Set score as a leaderboard score if there are less than 10 scores on the board or they beat the 10th fastest time.
-            if(sorted[9] && timeString < sorted[9].time){
+            if(sorted[5] && timeString < sorted[5].time){
                 leaderboardScore = true;
-            } else if (!sorted[9]){
+            } else if (!sorted[5]){
                 leaderboardScore = true;
             }
         } 
