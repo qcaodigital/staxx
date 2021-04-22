@@ -26,7 +26,7 @@
 
 ## Demo: [Live](http://www.staxxthegame.com)
 
-<img alt="Demo of qcao.dev" align='center' width='400px' src='./readme.gif'/><br/>
+<img alt="Demo of www.staxxthegame.com" align='center' width='400px' src='./readme.gif'/><br/>
 
 ## Author
 
